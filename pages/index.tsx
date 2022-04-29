@@ -1,17 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useSession, signIn, signOut } from 'next-auth/client'
-import { useEffect } from 'react'
 
 const Home: NextPage = () => {
   const [session, loading] = useSession()
-  const router = useRouter()
-
-  console.log(session, loading)
-  useEffect(() => {
-    router.push('/app')
-  }, [])
 
   const SignInStatus = () => {
     if (session) {
