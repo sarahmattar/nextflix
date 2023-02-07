@@ -1,14 +1,17 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Provider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react'
 
-function MyApp({ Component, pageProps }: AppProps) {
-
-  const AnyComponent = Component as any
+const MyApp = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) => {
   return (
-    <Provider session={pageProps.session}>
-      <AnyComponent {...pageProps} />
-    </Provider>
+    <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
+      <>
+        <Component {...pageProps} />
+      </>
+    </SessionProvider>
   )
 }
 
